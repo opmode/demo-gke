@@ -35,8 +35,7 @@ sudo apt-get update && sudo apt-get install terraform -y
 ### Downloading, Configuring, and Running The Code
 ```bash
 # Download the code to your workstation
-git clone git@github.com:opmode/demo-gke.git terraform; cd terraform
-
+git clone https://github.com/opmode/demo-gke.git; cd demo-gke
 # In the root terraform folder,
 # Create a `backend.tf` file so that terraform can use your bucket to keep track of your servers
 
