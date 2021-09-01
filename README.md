@@ -25,7 +25,7 @@ gcloud auth application-default login
 ```bash
 # From https://learn.hashicorp.com/tutorials/terraform/install-cli
 # Assuming Ubuntu Workstation
-sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl jq
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 # Install Terraform from the APT repo
@@ -64,8 +64,12 @@ terraform destroy -var="project=YOUR_GCP_PROJECT" -var="admin_ipv4_cidr_block=YO
 
 ### Inspecting Kubernetes
 ```bash
+
+# Get node IPs (this should only show private IPs)
+kubectl get nodes -o jsonpath='{.items[*].status.addresses}' | jq
+
 # Log into Kubernetes
-gcloud container clusters get-credentials demo-gke-cluster --zone us-central1-a
+gcloud container clusters get-credentials prod-demo-cluster --zone us-central1-a
 
 # Inspect pod networking on a test pod (should ping out)
 kubectl run -i --tty test --image=praqma/network-multitool --restart=Never
